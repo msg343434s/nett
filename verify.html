@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Verify You Are Human</title>
+<style>
+body { background:#f3f3f3;font-family:Arial;display:flex;justify-content:center;align-items:center;height:100vh; }
+.box { background:white;padding:30px;width:350px;border-radius:12px;box-shadow:0 0 12px rgba(0,0,0,.1);text-align:center; }
+#countdown { display:none;margin-top:20px;font-size:18px; }
+button { margin-top:20px;padding:10px 20px;background:orange;color:white;border:none;border-radius:8px;cursor:pointer; }
+</style>
+</head>
+<body>
+
+<div class="box">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" width="120" />
+    <h2>Verify you're human</h2>
+
+    <form id="capForm" method="POST" action="/verify">
+        <div class="cf-turnstile" data-sitekey="YOUR_SITE_KEY_HERE"></div>
+        <button type="submit">Verify</button>
+    </form>
+
+    <div id="countdown"></div>
+</div>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+<script>
+document.getElementById("capForm").addEventListener("submit", () => {
+    const countdown = document.getElementById("countdown");
+    countdown.style.display = "block";
+    let t = 5;
+    const timer = setInterval(() => {
+        countdown.innerHTML = "Redirecting in " + t + " seconds...";
+        t--;
+        if (t < 0) clearInterval(timer);
+    }, 1000);
+});
+</script>
+
+</body>
+</html>
